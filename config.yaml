@@ -1,0 +1,5 @@
+hostname: localhost
+port: 8000
+mysql_database: jdbc://localhost:12345/some_database
+redis_enabled: false
+

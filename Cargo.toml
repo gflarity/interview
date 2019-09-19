@@ -1,0 +1,16 @@
+[package]
+name = "interview"
+version = "0.0.0"
+
+[[bin]]
+name = "interview"
+
+[dependencies]
+actix-web = "1.0"
+env_logger = "0.6.2"
+log = "0.4.8"
+redis = "0.12.0"
+serde = "1.0.101"
+serde_yaml = "0.8.9"
+url = "2.1.0"
+
