@@ -1,7 +1,7 @@
 Interview
 =========
 
-## Install
+## Install Rust
 
 Install rustup:
 
@@ -9,7 +9,7 @@ Install rustup:
 curl https://sh.rustup.rs -sSf | sh
 ```
 
-We need to use an old version of Rust:
+To use an old version of Rust:
 
 ```
 rustup toolchain install 1.36.0
@@ -61,6 +61,11 @@ are passed as the following environment variables:
 
 * `REGION`, the region in which we're running our app, defaults to `local`
 * `ENVIRONMENT`, the named environment our application runs in, defaults to `development`
+* `CONFIG_FILE`, location of the main app config file to load. Defaults to `config.yaml`.
+* `REDIS_SECRETS_FILE`, location of a "secrets" file for Redis. Defaults to `redis.yaml`.
+* `STARTUP_WAIT_MILLIS`, amount of time to wait before the app begins serving traffic.
+  Defaults to `30000`.
 
-There are secrets in `redis.yaml`, which should be overwritten but not committed.
+There are secrets in `redis.yaml`, which should be overwritten but not committed. This can
+lead into discussions about secrets management.
 
