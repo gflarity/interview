@@ -13,7 +13,6 @@ use serde::{Serialize, Deserialize};
 
 use redis::Commands;
 use redis::Client as RedisClient;
-use redis::RedisResult;
 
 use std::env;
 use std::fs;
