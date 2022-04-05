@@ -24,9 +24,6 @@ use std::time::Duration;
 struct EnvConfig {
   region: String,
   environment: String,
-  config_file: String,
-  redis_secrets_file: String,
-  startup_wait_millis: u64,
 }
 
 impl EnvConfig {
@@ -34,12 +31,6 @@ impl EnvConfig {
     EnvConfig {
       region: env::var("REGION").unwrap_or("local".into()),
       environment: env::var("ENVIRONMENT").unwrap_or("development".into()),
-      config_file: env::var("CONFIG_FILE").unwrap_or("config.yaml".into()),
-      redis_secrets_file: env::var("REDIS_SECRETS_FILE").unwrap_or("redis.yaml".into()),
-      startup_wait_millis: env::var("STARTUP_WAIT_MILLIS")
-          .ok()
-          .and_then(|t| t.parse::<u64>().ok())
-          .unwrap_or(30_000),
     }
   }
 }
@@ -132,21 +123,20 @@ fn main() {
   let env_config = EnvConfig::init();
   info!("Environment config: {:?}", env_config);
 
-  info!("Reading config file `{}` ...", env_config.config_file);
-  let app_config = AppConfig::from_file(&env_config.config_file).expect("error reading config");
+  info!("Reading config.yaml ...");
+  let app_config = AppConfig::from_file("config.yaml").expect("error");
   info!("App config: {:?}", app_config);
 
-  info!("Reading redis secrets file `{}` ...", env_config.redis_secrets_file);
-  let redis_config = RedisConfig::from_file(&env_config.redis_secrets_file).expect("error reading redis config");
-  info!("Redis secrets and config (don't print real secrets) : {:?}", redis_config);
+  info!("Reading redis secrets (redis.yaml) ...");
+  let redis_config = RedisConfig::from_file("redis.yaml").expect("error");
+  info!("Redis config (don't print real secrets) : {:?}", redis_config);
 
   if app_config.redis_enabled {
     load_from_redis(&redis_config);
   }
 
-  info!("Waiting {} millis for dependencies... (simulated)", env_config.startup_wait_millis);
-  thread::sleep(Duration::from_millis(env_config.startup_wait_millis));
-  info!("Ready.");
+  info!("Waiting for dependencies...");
+  thread::sleep(Duration::from_millis(5_000));
 
   start_http_server(&app_config);
 }
