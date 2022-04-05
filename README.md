@@ -12,8 +12,8 @@ curl https://sh.rustup.rs -sSf | sh
 To use an old version of Rust:
 
 ```
-rustup toolchain install 1.36.0
-rustup toolchain default 1.36.0
+rustup install 1.34.0
+rustup default 1.34.0
 ```
 
 Useful commands:
