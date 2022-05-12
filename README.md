@@ -7,11 +7,6 @@ Install rustup:
 
 ```
 curl https://sh.rustup.rs -sSf | sh
-```
-
-To use an old version of Rust:
-
-```
 rustup install 1.34.0
 rustup default 1.34.0
 ```
